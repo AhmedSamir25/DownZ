@@ -10,11 +10,13 @@ final class FileDownloadProgressState extends FileDownloadState {
   final double progress;
   final int receivedBytes;
   final int totalBytes;
+  final double bytesPerSecond;
 
   const FileDownloadProgressState({
     required this.progress,
     required this.receivedBytes,
     required this.totalBytes,
+    required this.bytesPerSecond,
   });
 }
 

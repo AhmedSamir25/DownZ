@@ -279,13 +279,27 @@ class _HomeViewState extends State<HomeView> {
                                   ),
                                   if (state is FileDownloadProgressState) ...[
                                     const SizedBox(height: 8),
-                                    Text(
-                                      '${_formatBytes(state.receivedBytes)} downloaded of ${_formatBytes(state.totalBytes)}',
-                                      style: const TextStyle(
-                                        color: Color(0xFF66726D),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '${_formatBytes(state.receivedBytes)} of ${_formatBytes(state.totalBytes)}',
+                                          style: const TextStyle(
+                                            color: Color(0xFF66726D),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${_formatBytes(state.bytesPerSecond)}/s',
+                                          style: const TextStyle(
+                                            color: _ink,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ],
@@ -380,7 +394,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  String _formatBytes(int bytes) {
+  String _formatBytes(num bytes) {
     const units = ['B', 'KB', 'MB', 'GB', 'TB'];
     var value = bytes.toDouble();
     var unitIndex = 0;

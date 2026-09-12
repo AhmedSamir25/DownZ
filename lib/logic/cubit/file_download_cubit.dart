@@ -15,7 +15,7 @@ class FileDownloadCubit extends Cubit<FileDownloadState> {
     try {
       await _fileDownloadService.downloadFile(
         url: url,
-        onProgress: (received, total) {
+        onProgress: (received, total, bytesPerSecond) {
           if (total <= 0) return;
           final percent = (received / total * 100).floor();
           if (percent == _lastPercent) return;
@@ -25,6 +25,7 @@ class FileDownloadCubit extends Cubit<FileDownloadState> {
               progress: progressBarValue(received.toDouble(), total.toDouble()),
               receivedBytes: received,
               totalBytes: total,
+              bytesPerSecond: bytesPerSecond,
             ),
           );
         },
