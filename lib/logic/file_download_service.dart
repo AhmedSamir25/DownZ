@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:downz/logic/extract_file_name.dart';
 import 'package:downz/logic/save_file.dart';
 class FileDownloadService {
   final Dio _dio = Dio();
@@ -14,7 +15,7 @@ class FileDownloadService {
           },
         ),
       );
-      SaveFile.savefile(fileName: url);
+      SaveFile.savefile(fileName: extractFileName(url: url), fileData: response.data);
     } catch (e) {
       throw Exception('Failed to download file: $e');
     }
