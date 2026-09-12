@@ -1,13 +1,28 @@
 part of 'file_download_cubit.dart';
+
 class FileDownloadState {
   const FileDownloadState();
 }
 
-final class FileDownloadLoadingState extends FileDownloadState{}
+final class FileDownloadLoadingState extends FileDownloadState {}
 
-final class FileDownloadSuccessState extends FileDownloadState{}
+final class FileDownloadProgressState extends FileDownloadState {
+  final double progress;
+  final int receivedBytes;
+  final int totalBytes;
 
-final class FileDownloadErrorState extends FileDownloadState{
+  const FileDownloadProgressState({
+    required this.progress,
+    required this.receivedBytes,
+    required this.totalBytes,
+  });
+}
+
+final class FileDownloadSuccessState extends FileDownloadState {
+  const FileDownloadSuccessState();
+}
+
+final class FileDownloadErrorState extends FileDownloadState {
   final String message;
   const FileDownloadErrorState({required this.message});
 }
