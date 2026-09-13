@@ -1,6 +1,10 @@
 import 'dart:io';
-class SaveFile {
- static savefile({required String fileName, required List<int> fileData}) async{
+
+class FileStore {
+  Future<void> save({
+    required String fileName,
+    required List<int> fileData,
+  }) async {
     late final home = Platform.environment['HOME'];
     var file = File('$home/Downloads/$fileName');
     var counter = 1;
@@ -11,6 +15,5 @@ class SaveFile {
     }
 
     await file.writeAsBytes(fileData);
-
   }
 }

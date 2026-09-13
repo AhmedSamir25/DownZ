@@ -1,11 +1,19 @@
 import 'package:dio/dio.dart';
-import 'package:downz/logic/extract_file_name.dart';
-import 'package:downz/logic/save_file.dart';
+import 'package:downz/logic/download/download_file.dart';
 
-class FileDownloadService {
-  final Dio _dio = Dio();
+import 'extract_file_name.dart';
+import 'file_store.dart';
 
-  Future<void> downloadFile({
+final class DioDownloadFile implements DownloadFile {
+  DioDownloadFile({Dio? dio, FileStore? fileStore})
+    : _dio = dio ?? Dio(),
+      _fileStore = fileStore ?? FileStore();
+
+  final Dio _dio;
+  final FileStore _fileStore;
+
+  @override
+  Future<void> call({
     required String url,
     void Function(int received, int total, double bytesPerSecond)? onProgress,
   }) async {
@@ -31,7 +39,7 @@ class FileDownloadService {
         ),
       );
       stopwatch.stop();
-      SaveFile.savefile(
+      await _fileStore.save(
         fileName: extractFileName(url: url),
         fileData: response.data,
       );
